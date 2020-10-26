@@ -1,5 +1,5 @@
-const DAC = require("@laser-dac/core");
-const Laserdock = require("@laser-dac/laserdock");
+const { DAC } = require("@laser-dac/core");
+const { Laserdock } = require("@laser-dac/laserdock");
 
 (async () => {
   const dac = new DAC();
