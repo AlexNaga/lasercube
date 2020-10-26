@@ -20,5 +20,9 @@
   "dependencies": {
     "@laser-dac/core": "^0.4.1",
     "@laser-dac/laserdock": "^0.4.0"
+  },
+  "devDependencies": {
+    "@laser-dac/draw": "^0.6.0",
+    "@laser-dac/simulator": "^0.3.3"
   }
 }

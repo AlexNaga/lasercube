@@ -1,21 +1,28 @@
 const { DAC } = require("@laser-dac/core");
+const { Simulator } = require("@laser-dac/simulator");
 const { Laserdock } = require("@laser-dac/laserdock");
+const { Scene, Path } = require("@laser-dac/draw");
+
+const scene = new Scene({ resolution: 80 });
+
+const renderFrames = () => {
+  // Should draw this cross: https://codepen.io/chrisnager/pen/armzk
+  const cross = new Path({
+    path: "M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z",
+    color: [0, 1, 0],
+    width: 5,
+    height: 5,
+  });
+  scene.add(cross);
+};
 
 (async () => {
+  const pointsPerSecond = 30000;
   const dac = new DAC();
+  // dac.use(new Simulator());
   dac.use(new Laserdock());
-  const started = await dac.start();
+  await dac.start();
 
-  if (started) {
-    const pps = 30000; // points per second
-    // draw a horizontal red line from left to right in the center
-    // @laser-dac/draw can help you with drawing points!
-    const scene = {
-      points: [
-        { x: 0.1, y: 0.5, r: 1, g: 0, b: 0 },
-        { x: 0.9, y: 0.5, r: 1, g: 0, b: 0 },
-      ],
-    };
-    dac.stream(scene, pps);
-  }
+  scene.start(renderFrames);
+  dac.stream(scene, pointsPerSecond);
 })();
